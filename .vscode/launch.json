@@ -1,0 +1,51 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch (console) (Current)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildCurrent",
+            "program": "${fileDirname}/bin/Debug/net8.0/${fileDirnameBasename}.dll",
+            "args": [],
+            "cwd": "${fileDirname}",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": ".NET Core Launch (console) (TestGames)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildTestGames",
+            "program": "${workspaceFolder}/TestGames/bin/Debug/net8.0/TestGames.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/TestGames",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/dotnet/vscode-csharp/blob/main/debugger-launchjson.md
+            "name": ".NET Core Launch (console) (TilemapEditor)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildTilemapEditor",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/TilemapEditor/bin/Debug/net8.0/TilemapEditor",
+            "args": [],
+            "cwd": "${workspaceFolder}/TilemapEditor",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        }
+    ]
+}

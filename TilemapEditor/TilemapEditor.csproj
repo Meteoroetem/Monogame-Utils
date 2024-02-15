@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Include="GirCore.Gtk-4.0" Version="0.4.0" />-->
+    <PackageReference Include="GirCore.Adw-1" Version="0.4.0" />
+    <ProjectReference Include="../MonogameUtils/MonogameUtils.csproj"/>
+  </ItemGroup>
+  <Target Name="EmbedUIFiles" BeforeTargets="BeforeResGen" DependsOnTargets="PreBuild">
+    <ItemGroup>
+      <EmbeddedResource Include="tilemapeditor.ui" Type="Non-Resx" WithCulture="false" >
+        <LogicalName>tilemapeditor.ui</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="MainWindow.ui" Type="Non-Resx" WithCulture="false" >
+        <LogicalName>MainWindow.ui</LogicalName>
+      </EmbeddedResource>
+    </ItemGroup>
+  </Target>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="blueprint-compiler compile ./MainWindow.blp --output ./MainWindow.ui"/>
+  </Target>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="rm ./MainWindow.ui"/>
+  </Target>
+
+</Project>

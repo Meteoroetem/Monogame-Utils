@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<interface>
+  <object class="AdwWindow" id="window">
+    <property name="decorated">False</property>
+    <property name="maximized">True</property>
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="AdwHeaderBar" id="headerBar">
+            <child>
+              <object class="AdwSplitButton" id="openButton">
+                <property name="label">Open</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="newButton">
+                <property name="icon-name">document-new-symbolic</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

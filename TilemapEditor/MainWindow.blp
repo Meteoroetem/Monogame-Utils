@@ -1,0 +1,53 @@
+using Gtk 4.0;
+using Adw 1;
+
+Adw.ApplicationWindow mainWindow{
+    decorated: false;
+    Gtk.Box{
+        orientation: vertical;
+        Adw.HeaderBar headerBar{
+            Gtk.CenterBox headerBox{
+                [start]
+                Gtk.Box{
+                    orientation: horizontal;
+                    Gtk.ToggleButton showSidebar{
+                        icon-name: "sidebar-show-symbolic";
+                        active: true;
+                    }
+                    Adw.SplitButton openButton{
+                        label: "Open";
+                    }
+                    Gtk.Button newButton{
+                        icon-name: "document-new-symbolic";
+                    }
+                }
+            }
+                [end]
+                Gtk.Button menuButton{
+                    icon-name: "open-menu-symbolic";
+                }
+        }
+        Adw.OverlaySplitView{
+            vexpand: true;
+            show-sidebar: bind showSidebar.active;
+            
+            [sidebar]
+            Gtk.CenterBox{
+                orientation: vertical;
+                [center]
+                Gtk.Label{
+                    label: "Sidebar";
+                }
+            }
+            [content]
+            Gtk.Box{
+                orientation: vertical;
+                Gtk.Label{
+                    label: "Content";
+                }
+                Gtk.Entry{}
+                Gtk.SpinButton{}
+            }
+        }
+    }
+}
