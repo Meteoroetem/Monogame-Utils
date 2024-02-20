@@ -45,8 +45,9 @@ Adw.ApplicationWindow mainWindow{
                 Gtk.Label{
                     label: "Content";
                 }
-                Gtk.Entry{}
-                Gtk.SpinButton{}
+                Gtk.GridView mainGridView{
+                    enable-rubberband: true;
+                }
             }
         }
     }

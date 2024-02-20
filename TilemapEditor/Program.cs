@@ -11,5 +11,6 @@ application.OnActivate += (sender, args) =>
     };
     window.SetDefaultSize(1000, 700);
     window.Show();
+    //window.mainGridView
 };
 return application.RunWithSynchronizationContext();
