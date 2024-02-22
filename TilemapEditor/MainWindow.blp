@@ -45,8 +45,11 @@ Adw.ApplicationWindow mainWindow{
                 Gtk.Label{
                     label: "Content";
                 }
-                Gtk.GridView mainGridView{
-                    enable-rubberband: true;
+                Gtk.ScrolledWindow sw {
+                    vexpand: true;
+                    Gtk.ListView mainGridView{
+                        enable-rubberband: false;
+                    }
                 }
             }
         }
