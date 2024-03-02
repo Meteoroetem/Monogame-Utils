@@ -1,37 +1,50 @@
-using System.Reflection.Emit;
-using Adw;
-using Gio;
 using GObject;
-//using Gtk;
+using Gtk;
 
 namespace TilemapEditor;
 
 public class TilemapEditorWindow : Window{
-	[Gtk.Connect] private readonly HeaderBar headerBar;
-    [Gtk.Connect] private readonly SplitButton openButton;
-    [Gtk.Connect] private readonly Gtk.Button newButton;
-    [Gtk.Connect] private readonly Gtk.ScrolledWindow sw;
-
-    [Gtk.Connect] public Gtk.ListView mainGridView;
-
+	[Connect] private readonly Adw.HeaderBar headerBar;
+    [Connect] private readonly Adw.SplitButton openButton;
+    [Connect] private readonly Button newButton;
+    [Connect] private readonly ScrolledWindow sw;
+    [Connect] private readonly GridView mainGridView;
 
     private TilemapEditorWindow(Gtk.Builder builder, string name) : base(builder.GetPointer(name), false){
-        builder.Connect(this);
+        builder.Connect(this);  
+
+        var factory = SignalListItemFactory.New();
+
+        static void setupHandle(SignalListItemFactory sender, SignalListItemFactory.SetupSignalArgs args){
+            System.Console.WriteLine("Setup!");
+            var box = Box.New(Orientation.Horizontal, 2);
+            var label = new Value("");
+            //((ListItem)args.Object).Item.GetProperty("label", label);
+            box.Append(Label.New(label.GetString()));
+            box.MarginEnd = 20;
+            ((ListItem)args.Object).SetChild(box);
+        }
+        static void bindHandle(SignalListItemFactory sender, SignalListItemFactory.BindSignalArgs args){
+            Label labelWidget = (Label) ((ListItem) args.Object).Child.GetFirstChild();
+            labelWidget.SetLabel(((ExampleObject) ((ListItem) args.Object).Item).label);
+        }
+
+        factory.OnSetup += setupHandle;
+        factory.OnBind += bindHandle;
+
+        var listStore = Gio.ListStore.New(GObject.Type.Object);
+
+        for(int i = 0; i < 5; i++){
+            var obj = new ExampleObject($"{i}");
+            obj.SetProperty("label", new($"{i}"));
+            listStore.Append(obj);
+        }
+        
+        mainGridView.Model = MultiSelection.New(listStore);
+        mainGridView.Factory = factory;
     }
 
-    public TilemapEditorWindow() : this(new Gtk.Builder("MainWindow.ui"), "mainWindow"){
-        var list = Gio.ListStore.New(GObject.Type.Object);
-        for(int i = 0; i < 5; i++){
-            var obj = new ExampleObject($"{i}"); //GObject.Object.NewValist(GObject.Type.Object, "label", i);
-            Console.WriteLine(obj);
-            list.Append(obj);
-        }
-        var factory = Gtk.SignalListItemFactory.New();
-        factory.OnSetup += (sender, args) => {
-            var button = Gtk.Button.New();
-            button.Label = ((ExampleObject)args.Object).label;
-            ((Gtk.ListItem)args.Object).SetChild(button);
-        };
-        mainGridView = Gtk.ListView.New(Gtk.NoSelection.New((ListModel)list),factory);
+    public TilemapEditorWindow() : this(new Builder("MainWindow.ui"), "mainWindow"){
+        
     }
 }

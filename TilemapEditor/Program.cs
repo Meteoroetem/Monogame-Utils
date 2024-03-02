@@ -9,6 +9,7 @@ application.OnActivate += (sender, args) =>
         Application = (Application) sender,
         Title = "MonoGame Tilemap Editor"
     };
+
     window.SetDefaultSize(1000, 700);
     window.Show();
     //window.mainGridView
